@@ -1,5 +1,6 @@
 import pytest
 from Polynomial import Polynomial  # Import the Polynomial class from your module
+from mutation_operators import MutationOperators
 
 def test_init():
     poly = Polynomial([3, 0, 2])
@@ -51,4 +52,17 @@ def test_third_degree_polynomial():
     root = poly.find_root_bisection(-2, 2)
     assert abs(root - 0.0) < 1e-6
    
+def test_constant_replace():
+    poly = Polynomial([3, 0, 2])
+    MutationOperators.constant_replace(poly, 1, 5)
+    assert poly.coefficients == [3, 5, 2]
 
+def test_negate_coefficient():
+    poly = Polynomial([3, 0, 2])
+    MutationOperators.negate_coefficient(poly, 1)
+    assert poly.coefficients == [3, 0, -2]
+
+def test_delete_coefficient():
+    poly = Polynomial([3, 0, 2])
+    MutationOperators.delete_coefficient(poly, 1)
+    assert poly.coefficients == [3, 2]
